@@ -50,8 +50,6 @@ Documento que formaliza el alquiler entre la empresa y el cliente, especificando
 ### Integridad de los datos
 Principio fundamental de las bases de datos relacionales que garantiza que la información almacenada sea correcta, consistente y libre de duplicidades mediante restricciones y relaciones entre tablas.
 
----
- 
 ## 2. Tendencias actuales en la temática
 
 El sector del alquiler de vehículos ha evolucionado gracias a la transformación digital y a las nuevas necesidades de movilidad. Algunas de las principales tendencias son las siguientes:
