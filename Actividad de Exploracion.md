@@ -1,9 +1,6 @@
 # Actividad de exploración
 
 ## 1. Conceptos relevantes del Alquiler de vehículos 
-# Exploración de la Temática
-
-## 1. Conceptos importantes y relevantes
 
 Para el desarrollo de una plataforma de gestión de alquiler de vehículos basada en una base de datos relacional, es fundamental comprender los siguientes conceptos:
 
@@ -54,7 +51,7 @@ Documento que formaliza el alquiler entre la empresa y el cliente, especificando
 Principio fundamental de las bases de datos relacionales que garantiza que la información almacenada sea correcta, consistente y libre de duplicidades mediante restricciones y relaciones entre tablas.
 
 ---
-## 2. Conceptos relevantes del Alquiler de vehículos 
+ 
 ## 2. Tendencias actuales en la temática
 
 El sector del alquiler de vehículos ha evolucionado gracias a la transformación digital y a las nuevas necesidades de movilidad. Algunas de las principales tendencias son las siguientes:
