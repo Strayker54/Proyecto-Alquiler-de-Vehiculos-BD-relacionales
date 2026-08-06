@@ -1,6 +1,7 @@
 # Actividad de exploración
 
-## *1. Conceptos relevantes del Alquiler de vehículos*
+
+## 1. Conceptos relevantes del Alquiler de vehículos
 
 Para el desarrollo de una plataforma de gestión de alquiler de vehículos basada en una base de datos relacional, es fundamental comprender los siguientes conceptos:
 
@@ -50,7 +51,8 @@ Documento que formaliza el alquiler entre la empresa y el cliente, especificando
 ### Integridad de los datos
 Principio fundamental de las bases de datos relacionales que garantiza que la información almacenada sea correcta, consistente y libre de duplicidades mediante restricciones y relaciones entre tablas.
 
-## *2. Tendencias actuales en la temática*
+
+## 2. Tendencias actuales en la temática
 
 El sector del alquiler de vehículos ha evolucionado gracias a la transformación digital y a las nuevas necesidades de movilidad. Algunas de las principales tendencias son las siguientes:
 
@@ -84,7 +86,8 @@ La inteligencia artificial permite analizar el comportamiento de los clientes, r
 ### Enfoque en la experiencia del usuario
 Las plataformas buscan ofrecer interfaces intuitivas, procesos de reserva sencillos y atención personalizada para mejorar la satisfacción y fidelización de los clientes.
 
-## *3. Herramientas disponibles en el mercado* 
+
+## 3. Herramientas disponibles en el mercado
 ### *HQ Rental Software*
 
 *HQ Rental Software* es una **plataforma SaaS** especializada en la gestión integral de operaciones de alquiler de vehículos. Su propuesta de valor consiste en **centralizar todo el ciclo operativo del negocio en una única solución**, desde la reserva inicial hasta la devolución del vehículo y la facturación final. El sistema permite a las empresas automatizar la administración de reservas, controlar la disponibilidad de la flota en tiempo real, gestionar mantenimientos preventivos y correctivos, procesar pagos electrónicos, generar contratos digitales con firma electrónica y realizar inspecciones del estado de los vehículos mediante una aplicación móvil que registra fotografías y evidencias durante la entrega y devolución. Además, incorpora un motor de reservas en línea que puede integrarse con el sitio web de la empresa, sincronización con canales de distribución como *Expedia*, *Kayak* y *Turo*, control de múltiples sucursales e integración con plataformas de contabilidad, telemática y pasarelas de pago. Gracias a estas funcionalidades, HQ Rental Software busca **reducir procesos manuales, minimizar errores operativos y ofrecer una gestión centralizada y eficiente para empresas de alquiler de cualquier tamaño**.
