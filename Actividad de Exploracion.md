@@ -21,8 +21,11 @@ Representan el recurso principal de la plataforma. Cada vehículo posee caracter
 La plataforma contempla diferentes tipos de usuarios, entre ellos:
 
 *- Clientes ocasionales.*
+
 *- Clientes con membresía.*
+
 *- Clientes empresariales.*
+
 *- Administradores del sistema.*
 
 Cada tipo de usuario puede tener diferentes permisos, beneficios y tarifas.
@@ -34,9 +37,13 @@ Son planes que ofrecen beneficios adicionales a los clientes, como descuentos, p
 Corresponden al costo del alquiler de un vehículo. Estas tarifas pueden variar según:
 
 *- Tipo de vehículo.*
+
 *- Ciudad.*
+
 *- Duración del alquiler.*
+
 *- Temporada.*
+
 *- Tipo de membresía del cliente.*
 
 ### Disponibilidad
