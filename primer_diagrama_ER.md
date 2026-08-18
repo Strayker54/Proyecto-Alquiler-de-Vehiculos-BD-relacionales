@@ -82,7 +82,7 @@ A continuación se presenta el diagrama conceptual estructurado bajo la notació
 
 ---
 
-## 💻 5. Código DDL
+## 5. Código DDL
 
 ```mermaid
 erDiagram
