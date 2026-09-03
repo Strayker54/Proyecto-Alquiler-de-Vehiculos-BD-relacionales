@@ -16,13 +16,13 @@ en varias ciudades del país.
 ## Contenido
 
 ### 1. Contexto del problema
-[Consultar sección](01-Contexto-del-problema.md)
+[Consultar sección](01 - Contexto-del-Problema.md)
 
 ### 2. Tendencias actuales
-[Consultar sección](02-Tendencias-actuales.md)
+[Consultar sección](02 - Tendencias-Actuales.md)
 
 ### 3. Herramientas y sistemas similares
-[Consultar sección](03-Herramientas-y-sistemas-similares.md)
+[Consultar sección](03 - Herramientas-y-Sistemas-Similares.md)
 
 ### 4. Modelo E-R
 [Consultar sección](04-Modelo-E-R.md)
