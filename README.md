@@ -16,7 +16,7 @@ en varias ciudades del país.
 ## Contenido
 
 ### 1. Contexto del problema
-[Consultar sección](01 - Contexto-del-Problema.md)
+[Consultar sección](01-Contexto-del-Problema.md)
 
 ### 2. Tendencias actuales
 [Consultar sección](02 - Tendencias-Actuales.md)
