@@ -29,4 +29,4 @@ en varias ciudades del país.
 [Consultar sección](03-Herramientas-y-Sistemas-Similares.md)
 
 ### 4. Modelo E-R
-[Consultar sección](04-Modelo-E-R.md)
+[Consultar sección](04-Modelo-ER-Extendido.md)
