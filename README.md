@@ -1,5 +1,7 @@
 # Plataforma de Gestión de Alquiler de Vehículos
 
+![Plataforma de Gestión de Alquiler de Vehículos](img/portada.jpg)
+
 ## Integrantes
 
 - Angie Nicole Boada Mogollón — 2243672
