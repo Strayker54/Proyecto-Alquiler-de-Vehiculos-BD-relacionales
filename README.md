@@ -1,6 +1,8 @@
 # Plataforma de Gestión de Alquiler de Vehículos
 
-![Plataforma de Gestión de Alquiler de Vehículos](img/portada.jpg)
+<p align="center">
+  <img src="img/portada.jpg" alt="Plataforma de Gestión de Alquiler de Vehículos" width="800">
+</p>
 
 ## Integrantes
 
