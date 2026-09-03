@@ -1,58 +1,15 @@
 
-## 1. Conceptos relevantes del Alquiler de vehículos
+## 1. Contexto del Problema y Justificación
 
-Para el desarrollo de una plataforma de gestión de alquiler de vehículos basada en una base de datos relacional, es fundamental comprender los siguientes conceptos:
+### Descripción del Escenario Operativo
+La empresa de alquiler de vehículos se enfrenta a un escenario de crecimiento operativo acelerado que sobrepasa sus capacidades de gestión manuales o semi-automatizadas. Actualmente, el flujo operativo depende de procesos descentralizados, lo que genera inconsistencias críticas en el manejo de la información transaccional y de la flota.
 
-### Plataforma de alquiler de vehículos
-Es un sistema que permite administrar el proceso de reserva, alquiler y devolución de vehículos. Centraliza la información de clientes, vehículos, pagos y contratos.
+### Problemáticas Principales Identificadas
 
-### Base de datos relacional
-Es un modelo de almacenamiento de información organizado en tablas relacionadas mediante claves primarias y foráneas. Permite mantener la integridad, consistencia y disponibilidad de los datos.
+* **Inconsistencia en Reservas y Disponibilidad:** Falta de validación en tiempo real que causa sobre-reservas (*overbooking*) o la asignación de vehículos no disponibles (por estar en mantenimiento preventivo o en tránsito entre sucursales).
+* **Descontrol en la Flota Diversificada:** Incapacidad de gestionar eficientemente las especificaciones únicas de cada segmento de vehículo (ej. tiempos e infraestructura de carga para vehículos eléctricos, límites de tonelaje para vans de carga y especificaciones técnicas para automóviles particulares).
+* **Gestión Deficiente de Clientes y Beneficios:** Dificultad para segmentar adecuadamente el comportamiento de clientes ocasionales frente a empresariales, impidiendo aplicar reglas de negocio para descuentos corporativos o programas de referidos (`RECOMIENDA`).
+* **Falta de Trazabilidad Contractual y Mantenimiento:** Pérdida de seguimiento a los contratos activos, seguros vinculados y registros operativos de los talleres internos de cada sucursal.
 
-### Reserva
-Proceso mediante el cual un cliente solicita un vehículo para un período determinado. La reserva debe validar la disponibilidad del vehículo y registrar las fechas de inicio y finalización.
-
-### Vehículos
-Representan el recurso principal de la plataforma. Cada vehículo posee características como marca, modelo, año, tipo, capacidad, ciudad donde se encuentra, estado y tarifa de alquiler.
-
-### Clientes y tipos de usuarios
-La plataforma contempla diferentes tipos de usuarios, entre ellos:
-
-*- Clientes ocasionales.*
-
-*- Clientes con membresía.*
-
-*- Clientes empresariales.*
-
-*- Administradores del sistema.*
-
-Cada tipo de usuario puede tener diferentes permisos, beneficios y tarifas.
-
-### Membresías
-Son planes que ofrecen beneficios adicionales a los clientes, como descuentos, prioridad en reservas, acceso a categorías especiales de vehículos o tarifas preferenciales.
-
-### Tarifas y precios
-Corresponden al costo del alquiler de un vehículo. Estas tarifas pueden variar según:
-
-*- Tipo de vehículo.*
-
-*- Ciudad.*
-
-*- Duración del alquiler.*
-
-*- Temporada.*
-
-*- Tipo de membresía del cliente.*
-
-### Disponibilidad
-Indica si un vehículo puede ser reservado en un período específico. Depende del estado del vehículo y de las reservas previamente registradas.
-
-### Sucursales o ciudades
-La plataforma opera en diferentes ciudades del país, por lo que cada vehículo debe estar asociado a una ubicación desde donde puede ser reservado o devuelto.
-
-### Contrato de alquiler
-Documento que formaliza el alquiler entre la empresa y el cliente, especificando condiciones, fechas, costos, responsabilidades y estado del vehículo.
-
-### Integridad de los datos
-Principio fundamental de las bases de datos relacionales que garantiza que la información almacenada sea correcta, consistente y libre de duplicidades mediante restricciones y relaciones entre tablas.
-
+### Objetivo del Proyecto
+Diseñar e implementar un sistema de base de datos relacional modelado en tercera forma normal (3FN) y soportado por un diagrama E-R extendido. Este sistema centralizará la gestión de flotas, controlará la disponibilidad en tiempo real mediante la integración de la agregación `AlquilerEfectivo` y garantizará la integridad referencial en el ciclo de vida del alquiler.
