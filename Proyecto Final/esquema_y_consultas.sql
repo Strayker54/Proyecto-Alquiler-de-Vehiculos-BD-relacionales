@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS DETALLE_MANTENIMIENTO (
 -- =============================================================================
 
 -- 1. SUCURSAL (5 registros)
-INSERT INTO SUCURSAL (IdSucursal, Ciudad, Direccion) VALUES
+INSERT OR IGNORE INTO SUCURSAL (IdSucursal, Ciudad, Direccion) VALUES
 (1, 'Bucaramanga', 'Carrera 27 # 45-12, Barrio Cabecera'),
 (2, 'Bogota', 'Avenida El Dorado # 103-09, Fontibon'),
 (3, 'Medellin', 'Carrera 43A # 1-50, El Poblado'),
@@ -227,7 +227,7 @@ INSERT INTO SUCURSAL (IdSucursal, Ciudad, Direccion) VALUES
 (5, 'Barranquilla', 'Calle 76 # 54-11, Barrio Prado');
 
 -- 2. TALLER (5 registros)
-INSERT INTO TALLER (CodTaller, NIT_Taller, NombreTaller, TipoTaller, Ciudad, Direccion) VALUES
+INSERT OR IGNORE INTO TALLER (CodTaller, NIT_Taller, NombreTaller, TipoTaller, Ciudad, Direccion) VALUES
 (101, 900123456, 'Taller Central de Mantenimiento UIS', 'Interno', 'Bucaramanga', 'Zona Industrial Chimita Bodega 4'),
 (102, 900234567, 'Serviteca Los Andes Capital', 'Aliado Externo', 'Bogota', 'Calle 134 # 45-20'),
 (103, 900345678, 'Centro Automotriz del Valle', 'Concesionario', 'Cali', 'Calle 10 # 32-15'),
@@ -235,7 +235,7 @@ INSERT INTO TALLER (CodTaller, NIT_Taller, NombreTaller, TipoTaller, Ciudad, Dir
 (105, 900567890, 'Mecanica y Diagnostico Caribe', 'Aliado Externo', 'Barranquilla', 'Via 40 # 73-290');
 
 -- 3. MEMBRESIA (5 registros)
-INSERT INTO MEMBRESIA (NombreUnico, CostoMensual, Beneficios) VALUES
+INSERT OR IGNORE INTO MEMBRESIA (NombreUnico, CostoMensual, Beneficios) VALUES
 ('Estandar', 0.00, 'Sin costo mensual. Tarifas de lista regulares y acumulacion basica de puntos.'),
 ('Bronce', 49000.00, '5% de descuento en alquileres de fin de semana y atencion prioritaria en mostrador.'),
 ('Plata', 99000.00, '10% de descuento en cualquier categoria, conductor adicional sin costo.'),
@@ -243,7 +243,7 @@ INSERT INTO MEMBRESIA (NombreUnico, CostoMensual, Beneficios) VALUES
 ('Platinum VIP', 299000.00, '20% de descuento, cobertura total de seguro basica incluida y acceso prioritario a flota premium.');
 
 -- 4. CLIENTE (12 registros: 6 personas naturales ocasionales y 6 personas juridicas empresariales)
-INSERT INTO CLIENTE (NIT, CUC, Nombre, Ciudad, Barrio, Calle, Recomendador_NIT) VALUES
+INSERT OR IGNORE INTO CLIENTE (NIT, CUC, Nombre, Ciudad, Barrio, Calle, Recomendador_NIT) VALUES
 (1098765432, 'CUC-BGA-001', 'Carlos Mendoza', 'Bucaramanga', 'Cabecera', 'Calle 48 # 33-10', NULL),
 (1098765433, 'CUC-BGA-002', 'Valentina Gomez', 'Bucaramanga', 'San Francisco', 'Carrera 22 # 18-45', 1098765432),
 (1014234567, 'CUC-BOG-003', 'Felipe Morales', 'Bogota', 'Chapinero', 'Calle 67 # 9-20', NULL),
@@ -258,7 +258,7 @@ INSERT INTO CLIENTE (NIT, CUC, Nombre, Ciudad, Barrio, Calle, Recomendador_NIT) 
 (900888106, 'CUC-EMP-006', 'Soluciones Tecnologicas Globales', 'Bogota', 'Salitre', 'Avenida Esperanza # 68-50', 900888102);
 
 -- 5. CLIENTE_TELEFONO (14 registros demostrando atomicidad 1FN)
-INSERT INTO CLIENTE_TELEFONO (NIT, Telefono) VALUES
+INSERT OR IGNORE INTO CLIENTE_TELEFONO (NIT, Telefono) VALUES
 (1098765432, '3157894512'),
 (1098765432, '6076345678'),
 (1098765433, '3189012345'),
@@ -275,7 +275,7 @@ INSERT INTO CLIENTE_TELEFONO (NIT, Telefono) VALUES
 (900888105, '6053678901');
 
 -- 6. CLIENTE_OCASIONAL (6 registros)
-INSERT INTO CLIENTE_OCASIONAL (NIT, TarjetaCredito, LicenciaConduccion) VALUES
+INSERT OR IGNORE INTO CLIENTE_OCASIONAL (NIT, TarjetaCredito, LicenciaConduccion) VALUES
 (1098765432, '4532XXXXXXXX1234', '1098765432-BGA'),
 (1098765433, '4916XXXXXXXX5678', '1098765433-BGA'),
 (1014234567, '5424XXXXXXXX9012', '1014234567-BOG'),
@@ -284,7 +284,7 @@ INSERT INTO CLIENTE_OCASIONAL (NIT, TarjetaCredito, LicenciaConduccion) VALUES
 (1037654322, '5520XXXXXXXX2345', '1037654322-MED');
 
 -- 7. CLIENTE_EMPRESARIAL (6 registros)
-INSERT INTO CLIENTE_EMPRESARIAL (NIT, RazonSocial, DescuentoCorporativo, ContactoEjecutivo) VALUES
+INSERT OR IGNORE INTO CLIENTE_EMPRESARIAL (NIT, RazonSocial, DescuentoCorporativo, ContactoEjecutivo) VALUES
 (900888101, 'Logistica Santander S.A.S.', 15.00, 'Hernando Suarez - Gerente de Operaciones'),
 (900888102, 'Constructora Andina del Oriente', 18.00, 'Martha Patricia Gomez - Directora Administrativa'),
 (900888103, 'Distribuciones Paisas Ltda.', 12.50, 'Alejandro Restrepo - Jefe de Compras'),
@@ -293,7 +293,7 @@ INSERT INTO CLIENTE_EMPRESARIAL (NIT, RazonSocial, DescuentoCorporativo, Contact
 (900888106, 'Soluciones Tecnologicas Globales', 10.00, 'Paola Andrea Rincon - Lider de Talento Humano');
 
 -- 8. CONTRATA (6 registros de suscripciones activas)
-INSERT INTO CONTRATA (NIT, NombreUnico, FechaInicio, FechaFin) VALUES
+INSERT OR IGNORE INTO CONTRATA (NIT, NombreUnico, FechaInicio, FechaFin) VALUES
 (900888101, 'Oro Corporativo', '2026-01-01', '2026-12-31'),
 (900888102, 'Platinum VIP', '2026-02-01', '2027-01-31'),
 (900888103, 'Oro Corporativo', '2026-03-01', '2027-02-28'),
@@ -302,7 +302,7 @@ INSERT INTO CONTRATA (NIT, NombreUnico, FechaInicio, FechaFin) VALUES
 (1014234567, 'Bronce', '2026-06-01', '2026-12-01');
 
 -- 9. VEHICULO (20 registros en total: 5 por cada subclase de flota)
-INSERT INTO VEHICULO (VIN, Placa, Marca, Modelo, Año, KilometrajeActual, TarifaDiariaBase, NumPasajeros, TipoTransmision, TipoTraccion, TipoCombustible, IdSucursal) VALUES
+INSERT OR IGNORE INTO VEHICULO (VIN, Placa, Marca, Modelo, Año, KilometrajeActual, TarifaDiariaBase, NumPasajeros, TipoTransmision, TipoTraccion, TipoCombustible, IdSucursal) VALUES
 ('1FA6P8CF5H5000001', 'BGA101', 'Renault', 'Logan Zen', 2023, 24500, 130000.00, 5, 'Manual', '4x2', 'Gasolina', 1),
 ('1FA6P8CF5H5000002', 'BOG202', 'Chevrolet', 'Onix Sedan', 2024, 18200, 145000.00, 5, 'Automatica', '4x2', 'Gasolina', 2),
 ('1FA6P8CF5H5000003', 'MED303', 'Toyota', 'Corolla XEI', 2023, 31000, 190000.00, 5, 'Automatica', '4x2', 'Hibrido', 3),
@@ -325,7 +325,7 @@ INSERT INTO VEHICULO (VIN, Placa, Marca, Modelo, Año, KilometrajeActual, Tarifa
 ('4FA6P8CF5H5000020', 'BAQ520', 'Land Rover', 'Defender 110', 2024, 18900, 520000.00, 7, 'Automatica', '4x4', 'Diesel', 5);
 
 -- 10. AUTOMOVIL (5 registros)
-INSERT INTO AUTOMOVIL (VIN, TipoCarroceria) VALUES
+INSERT OR IGNORE INTO AUTOMOVIL (VIN, TipoCarroceria) VALUES
 ('1FA6P8CF5H5000001', 'Sedan'),
 ('1FA6P8CF5H5000002', 'Sedan'),
 ('1FA6P8CF5H5000003', 'Sedan'),
@@ -333,7 +333,7 @@ INSERT INTO AUTOMOVIL (VIN, TipoCarroceria) VALUES
 ('1FA6P8CF5H5000005', 'Sedan');
 
 -- 11. VAN_CARGA (5 registros)
-INSERT INTO VAN_CARGA (VIN, CapacidadCargaKg, VolumenUtilM3, TipoLicencia) VALUES
+INSERT OR IGNORE INTO VAN_CARGA (VIN, CapacidadCargaKg, VolumenUtilM3, TipoLicencia) VALUES
 ('2FA6P8CF5H5000006', 1650.00, 11.50, 'C2'),
 ('2FA6P8CF5H5000007', 750.00, 4.30, 'C1'),
 ('2FA6P8CF5H5000008', 1400.00, 6.60, 'C1'),
@@ -341,7 +341,7 @@ INSERT INTO VAN_CARGA (VIN, CapacidadCargaKg, VolumenUtilM3, TipoLicencia) VALUE
 ('2FA6P8CF5H5000010', 1250.00, 5.20, 'C1');
 
 -- 12. VEHICULO_ELECTRICO (5 registros)
-INSERT INTO VEHICULO_ELECTRICO (VIN, AutonomiaKm, TiempoCargaHoras) VALUES
+INSERT OR IGNORE INTO VEHICULO_ELECTRICO (VIN, AutonomiaKm, TiempoCargaHoras) VALUES
 ('3FA6P8CF5H5000011', 480, 1.20),
 ('3FA6P8CF5H5000012', 460, 0.80),
 ('3FA6P8CF5H5000013', 418, 0.75),
@@ -349,7 +349,7 @@ INSERT INTO VEHICULO_ELECTRICO (VIN, AutonomiaKm, TiempoCargaHoras) VALUES
 ('3FA6P8CF5H5000015', 506, 0.30);
 
 -- 13. VEHICULO_PREMIUM (5 registros)
-INSERT INTO VEHICULO_PREMIUM (VIN, Torque, Aceleracion, DetallesLujo) VALUES
+INSERT OR IGNORE INTO VEHICULO_PREMIUM (VIN, Torque, Aceleracion, DetallesLujo) VALUES
 ('4FA6P8CF5H5000016', '300 Nm', '7.3 s', 'Silleteria en cuero Nappa, sonido Burmester surround, iluminacion ambiental de 64 colores'),
 ('4FA6P8CF5H5000017', '370 Nm', '6.0 s', 'Techo panoramico corredizo, suspension adaptativa neumatica, cockpit digital dual'),
 ('4FA6P8CF5H5000018', '400 Nm', '5.8 s', 'Paquete exterior M Sport, asientos deportivos calefactables, head-up display con realidad aumentada'),
@@ -357,7 +357,7 @@ INSERT INTO VEHICULO_PREMIUM (VIN, Torque, Aceleracion, DetallesLujo) VALUES
 ('4FA6P8CF5H5000020', '650 Nm', '6.5 s', 'Suspension neumatica off-road regulable, camaras 3D 360 grados de entorno, sistema Meridian audio');
 
 -- 14. RESERVA (8 registros)
-INSERT INTO RESERVA (CodReserva, NIT_Cliente, VIN_Solicitado, FechaCreacion, FechaInicio, FechaFin, Estado) VALUES
+INSERT OR IGNORE INTO RESERVA (CodReserva, NIT_Cliente, VIN_Solicitado, FechaCreacion, FechaInicio, FechaFin, Estado) VALUES
 (5001, 1098765432, '1FA6P8CF5H5000001', '2026-08-01', '2026-08-05', '2026-08-08', 'Completada'),
 (5002, 1014234567, '1FA6P8CF5H5000002', '2026-08-10', '2026-08-12', '2026-08-15', 'Completada'),
 (5003, 900888101, '2FA6P8CF5H5000006', '2026-08-15', '2026-08-18', '2026-08-25', 'Completada'),
@@ -368,7 +368,7 @@ INSERT INTO RESERVA (CodReserva, NIT_Cliente, VIN_Solicitado, FechaCreacion, Fec
 (5008, 900888104, '2FA6P8CF5H5000009', '2026-10-05', '2026-10-15', '2026-10-22', 'Confirmada');
 
 -- 15. ALQUILER_EFECTIVO (6 registros materializados)
-INSERT INTO ALQUILER_EFECTIVO (IdAlquiler, NIT, CodReserva, VIN, FechaHoraSalida, NivelCombSalida, KmSalida, FechaHoraLlegada, NivelCombLlegada, KmLlegada, NotasEstado) VALUES
+INSERT OR IGNORE INTO ALQUILER_EFECTIVO (IdAlquiler, NIT, CodReserva, VIN, FechaHoraSalida, NivelCombSalida, KmSalida, FechaHoraLlegada, NivelCombLlegada, KmLlegada, NotasEstado) VALUES
 (1, 1098765432, 5001, '1FA6P8CF5H5000001', '2026-08-05 08:30:00', 'Lleno', 24100, '2026-08-08 17:00:00', 'Lleno', 24500, 'Entrega y devolucion sin novedades esteticas.'),
 (2, 1014234567, 5002, '1FA6P8CF5H5000002', '2026-08-12 09:15:00', 'Lleno', 17850, '2026-08-15 18:30:00', 'Lleno', 18200, 'Vehiculo devuelto limpio con odometro dentro del rango esperado.'),
 (3, 900888101, 5003, '2FA6P8CF5H5000006', '2026-08-18 07:00:00', 'Lleno', 56800, '2026-08-25 16:45:00', 'Lleno', 58000, 'Operacion logistica intermunicipal Santander-Cesar completada.'),
@@ -377,7 +377,7 @@ INSERT INTO ALQUILER_EFECTIVO (IdAlquiler, NIT, CodReserva, VIN, FechaHoraSalida
 (6, 900888105, 5006, '4FA6P8CF5H5000020', '2026-09-08 08:00:00', 'Lleno', 17950, '2026-09-14 18:00:00', 'Lleno', 18900, 'Recorrido corporativo costa atlantica Barranquilla-Santa Marta-Cartagena.');
 
 -- 16. CONTRATO (6 registros formalizados)
-INSERT INTO CONTRATO (NumContrato, IdAlquiler, FechaFirma, Condiciones, CostoTotalReal) VALUES
+INSERT OR IGNORE INTO CONTRATO (NumContrato, IdAlquiler, FechaFirma, Condiciones, CostoTotalReal) VALUES
 (7001, 1, '2026-08-05', 'Alquiler individual por 3 dias con tarifa regular y entrega en sede Cabecera.', 390000.00),
 (7002, 2, '2026-08-12', 'Alquiler individual por 3 dias en sede El Dorado con seguro incluido.', 435000.00),
 (7003, 3, '2026-08-18', 'Alquiler corporativo por 7 dias para Logistica Santander con descuento corporativo del 15%.', 1547000.00),
@@ -386,7 +386,7 @@ INSERT INTO CONTRATO (NumContrato, IdAlquiler, FechaFirma, Condiciones, CostoTot
 (7006, 6, '2026-09-08', 'Alquiler corporativo SUV premium por 6 dias con descuento corporativo del 20% para Agroindustrias del Caribe.', 2496000.00);
 
 -- 17. POLIZA_SEGURO (6 registros vinculados a contratos)
-INSERT INTO POLIZA_SEGURO (CodPoliza, NumContrato, Aseguradora, TipoCobertura, CostoDiario) VALUES
+INSERT OR IGNORE INTO POLIZA_SEGURO (CodPoliza, NumContrato, Aseguradora, TipoCobertura, CostoDiario) VALUES
 (8001, 7001, 'Seguros Bolivar', 'Todo Riesgo con Franquicia', 28000.00),
 (8002, 7002, 'Suramericana de Seguros', 'Todo Riesgo sin Franquicia', 35000.00),
 (8003, 7003, 'Allianz Seguros Colombia', 'Flota Comercial y Carga', 45000.00),
@@ -395,7 +395,7 @@ INSERT INTO POLIZA_SEGURO (CodPoliza, NumContrato, Aseguradora, TipoCobertura, C
 (8006, 7006, 'Suramericana de Seguros', 'Todo Riesgo Alta Gama y Responsabilidad Extracontractual', 65000.00);
 
 -- 18. MANTENIMIENTO (6 registros de intervenciones tecnicas)
-INSERT INTO MANTENIMIENTO (IdMantenimiento, VIN, CodTaller, FechaIngreso, CostoTotalMant) VALUES
+INSERT OR IGNORE INTO MANTENIMIENTO (IdMantenimiento, VIN, CodTaller, FechaIngreso, CostoTotalMant) VALUES
 (9001, '1FA6P8CF5H5000001', 101, '2026-07-15', 380000.00),
 (9002, '2FA6P8CF5H5000006', 101, '2026-07-28', 920000.00),
 (9003, '1FA6P8CF5H5000002', 102, '2026-08-01', 450000.00),
@@ -404,7 +404,7 @@ INSERT INTO MANTENIMIENTO (IdMantenimiento, VIN, CodTaller, FechaIngreso, CostoT
 (9006, '2FA6P8CF5H5000010', 105, '2026-09-02', 840000.00);
 
 -- 19. DETALLE_MANTENIMIENTO (12 registros de conceptos y repuestos)
-INSERT INTO DETALLE_MANTENIMIENTO (IdDetalle, IdMantenimiento, RepuestoOServicio, Cantidad, CostoUnitario, Subtotal) VALUES
+INSERT OR IGNORE INTO DETALLE_MANTENIMIENTO (IdDetalle, IdMantenimiento, RepuestoOServicio, Cantidad, CostoUnitario, Subtotal) VALUES
 (90011, 9001, 'Cambio de Aceite Sintetico 5W-30 y Filtro', 1, 220000.00, 220000.00),
 (90012, 9001, 'Alineacion y Balanceo Computarizado', 1, 160000.00, 160000.00),
 (90021, 9002, 'Kit Pastillas de Freno Delanteras Servicio Pesado', 1, 480000.00, 480000.00),
