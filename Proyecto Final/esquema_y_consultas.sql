@@ -1,30 +1,11 @@
--- =============================================================================
--- PROYECTO FINAL - BASES DE DATOS RELACIONALES
--- PLATAFORMA DE GESTION DE ALQUILER DE VEHICULOS
---
--- Integrantes:
--- - Angie Nicole Boada Mogollon - 2243672
--- - Andres Santiago Marin Forero - 2243556
--- - Anthoni Lexandre Hernandez Diaz - 2191198
--- - Laura Valentina Ortiz Villamizar - 2243553
---
--- Motor: SQLite (compatible con estandar SQL ANSI)
--- =============================================================================
-
 PRAGMA foreign_keys = ON;
 
--- =============================================================================
--- SECCION 1: DEFINICION DEL ESQUEMA DDL (19 TABLAS EN 3FN)
--- =============================================================================
-
--- 1. SUCURSAL
 CREATE TABLE IF NOT EXISTS SUCURSAL (
     IdSucursal INTEGER PRIMARY KEY,
     Ciudad VARCHAR(50) NOT NULL,
     Direccion VARCHAR(150) NOT NULL
 );
 
--- 2. TALLER
 CREATE TABLE IF NOT EXISTS TALLER (
     CodTaller INTEGER PRIMARY KEY,
     NIT_Taller INTEGER,
@@ -34,14 +15,12 @@ CREATE TABLE IF NOT EXISTS TALLER (
     Direccion VARCHAR(150) NOT NULL
 );
 
--- 3. MEMBRESIA
 CREATE TABLE IF NOT EXISTS MEMBRESIA (
     NombreUnico VARCHAR(50) PRIMARY KEY,
     CostoMensual DECIMAL(10,2) NOT NULL,
     Beneficios TEXT NOT NULL
 );
 
--- 4. CLIENTE
 CREATE TABLE IF NOT EXISTS CLIENTE (
     NIT INTEGER PRIMARY KEY,
     CUC VARCHAR(20) UNIQUE NOT NULL,
@@ -53,7 +32,6 @@ CREATE TABLE IF NOT EXISTS CLIENTE (
     FOREIGN KEY (Recomendador_NIT) REFERENCES CLIENTE(NIT)
 );
 
--- 5. CLIENTE_TELEFONO
 CREATE TABLE IF NOT EXISTS CLIENTE_TELEFONO (
     NIT INTEGER NOT NULL,
     Telefono VARCHAR(20) NOT NULL,
@@ -61,7 +39,6 @@ CREATE TABLE IF NOT EXISTS CLIENTE_TELEFONO (
     FOREIGN KEY (NIT) REFERENCES CLIENTE(NIT) ON DELETE CASCADE
 );
 
--- 6. CLIENTE_OCASIONAL (Especializacion de CLIENTE)
 CREATE TABLE IF NOT EXISTS CLIENTE_OCASIONAL (
     NIT INTEGER PRIMARY KEY,
     TarjetaCredito VARCHAR(20) NOT NULL,
@@ -69,7 +46,6 @@ CREATE TABLE IF NOT EXISTS CLIENTE_OCASIONAL (
     FOREIGN KEY (NIT) REFERENCES CLIENTE(NIT) ON DELETE CASCADE
 );
 
--- 7. CLIENTE_EMPRESARIAL (Especializacion de CLIENTE)
 CREATE TABLE IF NOT EXISTS CLIENTE_EMPRESARIAL (
     NIT INTEGER PRIMARY KEY,
     RazonSocial VARCHAR(150) NOT NULL,
@@ -78,7 +54,6 @@ CREATE TABLE IF NOT EXISTS CLIENTE_EMPRESARIAL (
     FOREIGN KEY (NIT) REFERENCES CLIENTE(NIT) ON DELETE CASCADE
 );
 
--- 8. CONTRATA (Relacion M:N entre CLIENTE y MEMBRESIA)
 CREATE TABLE IF NOT EXISTS CONTRATA (
     NIT INTEGER NOT NULL,
     NombreUnico VARCHAR(50) NOT NULL,
@@ -89,7 +64,6 @@ CREATE TABLE IF NOT EXISTS CONTRATA (
     FOREIGN KEY (NombreUnico) REFERENCES MEMBRESIA(NombreUnico)
 );
 
--- 9. VEHICULO (Superclase de Flota)
 CREATE TABLE IF NOT EXISTS VEHICULO (
     VIN VARCHAR(17) PRIMARY KEY,
     Placa VARCHAR(10) UNIQUE NOT NULL,
@@ -106,14 +80,12 @@ CREATE TABLE IF NOT EXISTS VEHICULO (
     FOREIGN KEY (IdSucursal) REFERENCES SUCURSAL(IdSucursal)
 );
 
--- 10. AUTOMOVIL (Especializacion de VEHICULO)
 CREATE TABLE IF NOT EXISTS AUTOMOVIL (
     VIN VARCHAR(17) PRIMARY KEY,
     TipoCarroceria VARCHAR(30) NOT NULL,
     FOREIGN KEY (VIN) REFERENCES VEHICULO(VIN) ON DELETE CASCADE
 );
 
--- 11. VAN_CARGA (Especializacion de VEHICULO)
 CREATE TABLE IF NOT EXISTS VAN_CARGA (
     VIN VARCHAR(17) PRIMARY KEY,
     CapacidadCargaKg DECIMAL(8,2) NOT NULL,
@@ -122,7 +94,6 @@ CREATE TABLE IF NOT EXISTS VAN_CARGA (
     FOREIGN KEY (VIN) REFERENCES VEHICULO(VIN) ON DELETE CASCADE
 );
 
--- 12. VEHICULO_ELECTRICO (Especializacion de VEHICULO)
 CREATE TABLE IF NOT EXISTS VEHICULO_ELECTRICO (
     VIN VARCHAR(17) PRIMARY KEY,
     AutonomiaKm INTEGER NOT NULL,
@@ -130,7 +101,6 @@ CREATE TABLE IF NOT EXISTS VEHICULO_ELECTRICO (
     FOREIGN KEY (VIN) REFERENCES VEHICULO(VIN) ON DELETE CASCADE
 );
 
--- 13. VEHICULO_PREMIUM (Especializacion de VEHICULO)
 CREATE TABLE IF NOT EXISTS VEHICULO_PREMIUM (
     VIN VARCHAR(17) PRIMARY KEY,
     Torque VARCHAR(30) NOT NULL,
@@ -139,7 +109,6 @@ CREATE TABLE IF NOT EXISTS VEHICULO_PREMIUM (
     FOREIGN KEY (VIN) REFERENCES VEHICULO(VIN) ON DELETE CASCADE
 );
 
--- 14. RESERVA
 CREATE TABLE IF NOT EXISTS RESERVA (
     CodReserva INTEGER PRIMARY KEY,
     NIT_Cliente INTEGER NOT NULL,
@@ -152,7 +121,6 @@ CREATE TABLE IF NOT EXISTS RESERVA (
     FOREIGN KEY (VIN_Solicitado) REFERENCES VEHICULO(VIN)
 );
 
--- 15. ALQUILER_EFECTIVO (Agregacion central del modelo)
 CREATE TABLE IF NOT EXISTS ALQUILER_EFECTIVO (
     IdAlquiler INTEGER PRIMARY KEY AUTOINCREMENT,
     NIT INTEGER NOT NULL,
@@ -170,7 +138,6 @@ CREATE TABLE IF NOT EXISTS ALQUILER_EFECTIVO (
     FOREIGN KEY (VIN) REFERENCES VEHICULO(VIN)
 );
 
--- 16. CONTRATO
 CREATE TABLE IF NOT EXISTS CONTRATO (
     NumContrato INTEGER PRIMARY KEY,
     IdAlquiler INTEGER NOT NULL,
@@ -180,7 +147,6 @@ CREATE TABLE IF NOT EXISTS CONTRATO (
     FOREIGN KEY (IdAlquiler) REFERENCES ALQUILER_EFECTIVO(IdAlquiler)
 );
 
--- 17. POLIZA_SEGURO
 CREATE TABLE IF NOT EXISTS POLIZA_SEGURO (
     CodPoliza INTEGER PRIMARY KEY,
     NumContrato INTEGER NOT NULL,
@@ -190,7 +156,6 @@ CREATE TABLE IF NOT EXISTS POLIZA_SEGURO (
     FOREIGN KEY (NumContrato) REFERENCES CONTRATO(NumContrato)
 );
 
--- 18. MANTENIMIENTO
 CREATE TABLE IF NOT EXISTS MANTENIMIENTO (
     IdMantenimiento INTEGER PRIMARY KEY,
     VIN VARCHAR(17) NOT NULL,
@@ -201,7 +166,6 @@ CREATE TABLE IF NOT EXISTS MANTENIMIENTO (
     FOREIGN KEY (CodTaller) REFERENCES TALLER(CodTaller)
 );
 
--- 19. DETALLE_MANTENIMIENTO
 CREATE TABLE IF NOT EXISTS DETALLE_MANTENIMIENTO (
     IdDetalle INTEGER PRIMARY KEY,
     IdMantenimiento INTEGER NOT NULL,
@@ -212,13 +176,6 @@ CREATE TABLE IF NOT EXISTS DETALLE_MANTENIMIENTO (
     FOREIGN KEY (IdMantenimiento) REFERENCES MANTENIMIENTO(IdMantenimiento)
 );
 
-
--- =============================================================================
--- SECCION 2: INSERCION DE DATOS DML (MINIMO 5 REGISTROS POR TABLA)
--- Ambientados en ciudades de Colombia: Bucaramanga, Bogota, Medellin, Cali, Barranquilla.
--- =============================================================================
-
--- 1. SUCURSAL (5 registros)
 INSERT OR IGNORE INTO SUCURSAL (IdSucursal, Ciudad, Direccion) VALUES
 (1, 'Bucaramanga', 'Carrera 27 # 45-12, Barrio Cabecera'),
 (2, 'Bogota', 'Avenida El Dorado # 103-09, Fontibon'),
@@ -226,7 +183,6 @@ INSERT OR IGNORE INTO SUCURSAL (IdSucursal, Ciudad, Direccion) VALUES
 (4, 'Cali', 'Avenida 6N # 28N-40, Chipichape'),
 (5, 'Barranquilla', 'Calle 76 # 54-11, Barrio Prado');
 
--- 2. TALLER (5 registros)
 INSERT OR IGNORE INTO TALLER (CodTaller, NIT_Taller, NombreTaller, TipoTaller, Ciudad, Direccion) VALUES
 (101, 900123456, 'Taller Central de Mantenimiento UIS', 'Interno', 'Bucaramanga', 'Zona Industrial Chimita Bodega 4'),
 (102, 900234567, 'Serviteca Los Andes Capital', 'Aliado Externo', 'Bogota', 'Calle 134 # 45-20'),
@@ -234,7 +190,6 @@ INSERT OR IGNORE INTO TALLER (CodTaller, NIT_Taller, NombreTaller, TipoTaller, C
 (104, 900456789, 'Taller Especializado Antioquia Motors', 'Interno', 'Medellin', 'Autopista Sur # 65-10'),
 (105, 900567890, 'Mecanica y Diagnostico Caribe', 'Aliado Externo', 'Barranquilla', 'Via 40 # 73-290');
 
--- 3. MEMBRESIA (5 registros)
 INSERT OR IGNORE INTO MEMBRESIA (NombreUnico, CostoMensual, Beneficios) VALUES
 ('Estandar', 0.00, 'Sin costo mensual. Tarifas de lista regulares y acumulacion basica de puntos.'),
 ('Bronce', 49000.00, '5% de descuento en alquileres de fin de semana y atencion prioritaria en mostrador.'),
@@ -242,7 +197,6 @@ INSERT OR IGNORE INTO MEMBRESIA (NombreUnico, CostoMensual, Beneficios) VALUES
 ('Oro Corporativo', 189000.00, '15% de descuento general, kilometraje ilimitado y entrega a domicilio.'),
 ('Platinum VIP', 299000.00, '20% de descuento, cobertura total de seguro basica incluida y acceso prioritario a flota premium.');
 
--- 4. CLIENTE (12 registros: 6 personas naturales ocasionales y 6 personas juridicas empresariales)
 INSERT OR IGNORE INTO CLIENTE (NIT, CUC, Nombre, Ciudad, Barrio, Calle, Recomendador_NIT) VALUES
 (1098765432, 'CUC-BGA-001', 'Carlos Mendoza', 'Bucaramanga', 'Cabecera', 'Calle 48 # 33-10', NULL),
 (1098765433, 'CUC-BGA-002', 'Valentina Gomez', 'Bucaramanga', 'San Francisco', 'Carrera 22 # 18-45', 1098765432),
@@ -257,7 +211,6 @@ INSERT OR IGNORE INTO CLIENTE (NIT, CUC, Nombre, Ciudad, Barrio, Calle, Recomend
 (900888105, 'CUC-EMP-005', 'Agroindustrias del Caribe S.A.', 'Barranquilla', 'El Golf', 'Calle 82 # 57-33', NULL),
 (900888106, 'CUC-EMP-006', 'Soluciones Tecnologicas Globales', 'Bogota', 'Salitre', 'Avenida Esperanza # 68-50', 900888102);
 
--- 5. CLIENTE_TELEFONO (14 registros demostrando atomicidad 1FN)
 INSERT OR IGNORE INTO CLIENTE_TELEFONO (NIT, Telefono) VALUES
 (1098765432, '3157894512'),
 (1098765432, '6076345678'),
@@ -274,7 +227,6 @@ INSERT OR IGNORE INTO CLIENTE_TELEFONO (NIT, Telefono) VALUES
 (900888104, '6028901234'),
 (900888105, '6053678901');
 
--- 6. CLIENTE_OCASIONAL (6 registros)
 INSERT OR IGNORE INTO CLIENTE_OCASIONAL (NIT, TarjetaCredito, LicenciaConduccion) VALUES
 (1098765432, '4532XXXXXXXX1234', '1098765432-BGA'),
 (1098765433, '4916XXXXXXXX5678', '1098765433-BGA'),
@@ -283,7 +235,6 @@ INSERT OR IGNORE INTO CLIENTE_OCASIONAL (NIT, TarjetaCredito, LicenciaConduccion
 (1037654321, '4026XXXXXXXX7890', '1037654321-MED'),
 (1037654322, '5520XXXXXXXX2345', '1037654322-MED');
 
--- 7. CLIENTE_EMPRESARIAL (6 registros)
 INSERT OR IGNORE INTO CLIENTE_EMPRESARIAL (NIT, RazonSocial, DescuentoCorporativo, ContactoEjecutivo) VALUES
 (900888101, 'Logistica Santander S.A.S.', 15.00, 'Hernando Suarez - Gerente de Operaciones'),
 (900888102, 'Constructora Andina del Oriente', 18.00, 'Martha Patricia Gomez - Directora Administrativa'),
@@ -292,7 +243,6 @@ INSERT OR IGNORE INTO CLIENTE_EMPRESARIAL (NIT, RazonSocial, DescuentoCorporativ
 (900888105, 'Agroindustrias del Caribe S.A.', 20.00, 'Jorge Mario Dangond - Gerente General'),
 (900888106, 'Soluciones Tecnologicas Globales', 10.00, 'Paola Andrea Rincon - Lider de Talento Humano');
 
--- 8. CONTRATA (6 registros de suscripciones activas)
 INSERT OR IGNORE INTO CONTRATA (NIT, NombreUnico, FechaInicio, FechaFin) VALUES
 (900888101, 'Oro Corporativo', '2026-01-01', '2026-12-31'),
 (900888102, 'Platinum VIP', '2026-02-01', '2027-01-31'),
@@ -301,7 +251,6 @@ INSERT OR IGNORE INTO CONTRATA (NIT, NombreUnico, FechaInicio, FechaFin) VALUES
 (1098765432, 'Plata', '2026-05-01', '2026-11-01'),
 (1014234567, 'Bronce', '2026-06-01', '2026-12-01');
 
--- 9. VEHICULO (20 registros en total: 5 por cada subclase de flota)
 INSERT OR IGNORE INTO VEHICULO (VIN, Placa, Marca, Modelo, Año, KilometrajeActual, TarifaDiariaBase, NumPasajeros, TipoTransmision, TipoTraccion, TipoCombustible, IdSucursal) VALUES
 ('1FA6P8CF5H5000001', 'BGA101', 'Renault', 'Logan Zen', 2023, 24500, 130000.00, 5, 'Manual', '4x2', 'Gasolina', 1),
 ('1FA6P8CF5H5000002', 'BOG202', 'Chevrolet', 'Onix Sedan', 2024, 18200, 145000.00, 5, 'Automatica', '4x2', 'Gasolina', 2),
@@ -324,7 +273,6 @@ INSERT OR IGNORE INTO VEHICULO (VIN, Placa, Marca, Modelo, Año, KilometrajeActu
 ('4FA6P8CF5H5000019', 'CAL419', 'Porsche', 'Macan Turbo', 2023, 21000, 550000.00, 5, 'Automatica', 'AWD', 'Gasolina', 4),
 ('4FA6P8CF5H5000020', 'BAQ520', 'Land Rover', 'Defender 110', 2024, 18900, 520000.00, 7, 'Automatica', '4x4', 'Diesel', 5);
 
--- 10. AUTOMOVIL (5 registros)
 INSERT OR IGNORE INTO AUTOMOVIL (VIN, TipoCarroceria) VALUES
 ('1FA6P8CF5H5000001', 'Sedan'),
 ('1FA6P8CF5H5000002', 'Sedan'),
@@ -332,7 +280,6 @@ INSERT OR IGNORE INTO AUTOMOVIL (VIN, TipoCarroceria) VALUES
 ('1FA6P8CF5H5000004', 'Hatchback'),
 ('1FA6P8CF5H5000005', 'Sedan');
 
--- 11. VAN_CARGA (5 registros)
 INSERT OR IGNORE INTO VAN_CARGA (VIN, CapacidadCargaKg, VolumenUtilM3, TipoLicencia) VALUES
 ('2FA6P8CF5H5000006', 1650.00, 11.50, 'C2'),
 ('2FA6P8CF5H5000007', 750.00, 4.30, 'C1'),
@@ -340,7 +287,6 @@ INSERT OR IGNORE INTO VAN_CARGA (VIN, CapacidadCargaKg, VolumenUtilM3, TipoLicen
 ('2FA6P8CF5H5000009', 1800.00, 9.80, 'C2'),
 ('2FA6P8CF5H5000010', 1250.00, 5.20, 'C1');
 
--- 12. VEHICULO_ELECTRICO (5 registros)
 INSERT OR IGNORE INTO VEHICULO_ELECTRICO (VIN, AutonomiaKm, TiempoCargaHoras) VALUES
 ('3FA6P8CF5H5000011', 480, 1.20),
 ('3FA6P8CF5H5000012', 460, 0.80),
@@ -348,7 +294,6 @@ INSERT OR IGNORE INTO VEHICULO_ELECTRICO (VIN, AutonomiaKm, TiempoCargaHoras) VA
 ('3FA6P8CF5H5000014', 300, 1.50),
 ('3FA6P8CF5H5000015', 506, 0.30);
 
--- 13. VEHICULO_PREMIUM (5 registros)
 INSERT OR IGNORE INTO VEHICULO_PREMIUM (VIN, Torque, Aceleracion, DetallesLujo) VALUES
 ('4FA6P8CF5H5000016', '300 Nm', '7.3 s', 'Silleteria en cuero Nappa, sonido Burmester surround, iluminacion ambiental de 64 colores'),
 ('4FA6P8CF5H5000017', '370 Nm', '6.0 s', 'Techo panoramico corredizo, suspension adaptativa neumatica, cockpit digital dual'),
@@ -356,7 +301,6 @@ INSERT OR IGNORE INTO VEHICULO_PREMIUM (VIN, Torque, Aceleracion, DetallesLujo) 
 ('4FA6P8CF5H5000019', '550 Nm', '4.3 s', 'Frenos carboceramicos PCCB, escape deportivo regulable, tapiceria en Alcantara premium'),
 ('4FA6P8CF5H5000020', '650 Nm', '6.5 s', 'Suspension neumatica off-road regulable, camaras 3D 360 grados de entorno, sistema Meridian audio');
 
--- 14. RESERVA (8 registros)
 INSERT OR IGNORE INTO RESERVA (CodReserva, NIT_Cliente, VIN_Solicitado, FechaCreacion, FechaInicio, FechaFin, Estado) VALUES
 (5001, 1098765432, '1FA6P8CF5H5000001', '2026-08-01', '2026-08-05', '2026-08-08', 'Completada'),
 (5002, 1014234567, '1FA6P8CF5H5000002', '2026-08-10', '2026-08-12', '2026-08-15', 'Completada'),
@@ -367,7 +311,6 @@ INSERT OR IGNORE INTO RESERVA (CodReserva, NIT_Cliente, VIN_Solicitado, FechaCre
 (5007, 1098765433, '3FA6P8CF5H5000011', '2026-10-01', '2026-10-10', '2026-10-13', 'Confirmada'),
 (5008, 900888104, '2FA6P8CF5H5000009', '2026-10-05', '2026-10-15', '2026-10-22', 'Confirmada');
 
--- 15. ALQUILER_EFECTIVO (6 registros materializados)
 INSERT OR IGNORE INTO ALQUILER_EFECTIVO (IdAlquiler, NIT, CodReserva, VIN, FechaHoraSalida, NivelCombSalida, KmSalida, FechaHoraLlegada, NivelCombLlegada, KmLlegada, NotasEstado) VALUES
 (1, 1098765432, 5001, '1FA6P8CF5H5000001', '2026-08-05 08:30:00', 'Lleno', 24100, '2026-08-08 17:00:00', 'Lleno', 24500, 'Entrega y devolucion sin novedades esteticas.'),
 (2, 1014234567, 5002, '1FA6P8CF5H5000002', '2026-08-12 09:15:00', 'Lleno', 17850, '2026-08-15 18:30:00', 'Lleno', 18200, 'Vehiculo devuelto limpio con odometro dentro del rango esperado.'),
@@ -376,7 +319,6 @@ INSERT OR IGNORE INTO ALQUILER_EFECTIVO (IdAlquiler, NIT, CodReserva, VIN, Fecha
 (5, 1037654321, 5005, '4FA6P8CF5H5000018', '2026-09-03 14:00:00', 'Lleno', 12900, '2026-09-06 19:00:00', 'Lleno', 13200, 'Alquiler fin de semana evento en Llanogrande.'),
 (6, 900888105, 5006, '4FA6P8CF5H5000020', '2026-09-08 08:00:00', 'Lleno', 17950, '2026-09-14 18:00:00', 'Lleno', 18900, 'Recorrido corporativo costa atlantica Barranquilla-Santa Marta-Cartagena.');
 
--- 16. CONTRATO (6 registros formalizados)
 INSERT OR IGNORE INTO CONTRATO (NumContrato, IdAlquiler, FechaFirma, Condiciones, CostoTotalReal) VALUES
 (7001, 1, '2026-08-05', 'Alquiler individual por 3 dias con tarifa regular y entrega en sede Cabecera.', 390000.00),
 (7002, 2, '2026-08-12', 'Alquiler individual por 3 dias en sede El Dorado con seguro incluido.', 435000.00),
@@ -385,7 +327,6 @@ INSERT OR IGNORE INTO CONTRATO (NumContrato, IdAlquiler, FechaFirma, Condiciones
 (7005, 5, '2026-09-03', 'Alquiler gama premium individual por 3 dias sede El Poblado con descuento membresia Plata.', 1107000.00),
 (7006, 6, '2026-09-08', 'Alquiler corporativo SUV premium por 6 dias con descuento corporativo del 20% para Agroindustrias del Caribe.', 2496000.00);
 
--- 17. POLIZA_SEGURO (6 registros vinculados a contratos)
 INSERT OR IGNORE INTO POLIZA_SEGURO (CodPoliza, NumContrato, Aseguradora, TipoCobertura, CostoDiario) VALUES
 (8001, 7001, 'Seguros Bolivar', 'Todo Riesgo con Franquicia', 28000.00),
 (8002, 7002, 'Suramericana de Seguros', 'Todo Riesgo sin Franquicia', 35000.00),
@@ -394,7 +335,6 @@ INSERT OR IGNORE INTO POLIZA_SEGURO (CodPoliza, NumContrato, Aseguradora, TipoCo
 (8005, 7005, 'Seguros del Estado', 'Todo Riesgo Alta Gama', 55000.00),
 (8006, 7006, 'Suramericana de Seguros', 'Todo Riesgo Alta Gama y Responsabilidad Extracontractual', 65000.00);
 
--- 18. MANTENIMIENTO (6 registros de intervenciones tecnicas)
 INSERT OR IGNORE INTO MANTENIMIENTO (IdMantenimiento, VIN, CodTaller, FechaIngreso, CostoTotalMant) VALUES
 (9001, '1FA6P8CF5H5000001', 101, '2026-07-15', 380000.00),
 (9002, '2FA6P8CF5H5000006', 101, '2026-07-28', 920000.00),
@@ -403,7 +343,6 @@ INSERT OR IGNORE INTO MANTENIMIENTO (IdMantenimiento, VIN, CodTaller, FechaIngre
 (9005, '4FA6P8CF5H5000018', 104, '2026-08-25', 1250000.00),
 (9006, '2FA6P8CF5H5000010', 105, '2026-09-02', 840000.00);
 
--- 19. DETALLE_MANTENIMIENTO (12 registros de conceptos y repuestos)
 INSERT OR IGNORE INTO DETALLE_MANTENIMIENTO (IdDetalle, IdMantenimiento, RepuestoOServicio, Cantidad, CostoUnitario, Subtotal) VALUES
 (90011, 9001, 'Cambio de Aceite Sintetico 5W-30 y Filtro', 1, 220000.00, 220000.00),
 (90012, 9001, 'Alineacion y Balanceo Computarizado', 1, 160000.00, 160000.00),
@@ -418,13 +357,6 @@ INSERT OR IGNORE INTO DETALLE_MANTENIMIENTO (IdDetalle, IdMantenimiento, Repuest
 (90061, 9006, 'Cambio de Amortiguadores Traseros Reforzados', 2, 320000.00, 640000.00),
 (90062, 9006, 'Engrase General de Suspension y Terminales', 1, 200000.00, 200000.00);
 
-
--- =============================================================================
--- SECCION 3: 10 CONSULTAS SQL PERTINENTES AL NEGOCIO
--- =============================================================================
-
--- Consulta 1: Ingresos totales y ticket promedio de alquiler por sucursal y ciudad.
--- Permite a la gerencia identificar cuales sedes comerciales generan mayor rentabilidad y volumen de negocio.
 SELECT 
     s.IdSucursal,
     s.Ciudad,
@@ -438,9 +370,6 @@ JOIN CONTRATO c ON ae.IdAlquiler = c.IdAlquiler
 GROUP BY s.IdSucursal, s.Ciudad
 ORDER BY IngresosTotales DESC;
 
-
--- Consulta 2: Historial detallado y costos acumulados de mantenimiento por vehiculo y taller.
--- Ayuda al area logistica a controlar el gasto operativo en repuestos y servicios por cada unidad de la flota.
 SELECT 
     v.VIN,
     v.Placa,
@@ -457,9 +386,6 @@ JOIN DETALLE_MANTENIMIENTO dm ON m.IdMantenimiento = dm.IdMantenimiento
 GROUP BY v.VIN, v.Placa, v.Marca, v.Modelo, t.NombreTaller, m.FechaIngreso
 ORDER BY CostoTotalReparaciones DESC;
 
-
--- Consulta 3: Clientes empresariales con membresias vigentes y descuento corporativo aplicado.
--- Permite al equipo comercial verificar que clientes corporativos cuentan con planes activos y beneficios asignados.
 SELECT 
     ce.NIT,
     ce.RazonSocial,
@@ -475,9 +401,6 @@ WHERE DATE('now') BETWEEN co.FechaInicio AND co.FechaFin
    OR co.FechaFin >= '2026-11-01'
 ORDER BY ce.DescuentoCorporativo DESC;
 
-
--- Consulta 4: Flota de vehiculos electricos, autonomia de bateria y sucursal base asignada.
--- Responde a la necesidad operativa de asignar vehiculos cero emisiones segun la infraestructura y demanda local.
 SELECT 
     v.VIN,
     v.Placa,
@@ -492,9 +415,6 @@ JOIN VEHICULO_ELECTRICO ve ON v.VIN = ve.VIN
 JOIN SUCURSAL s ON v.IdSucursal = s.IdSucursal
 ORDER BY ve.AutonomiaKm DESC;
 
-
--- Consulta 5: Analisis comparativo de kilometraje recorrido en servicios de alquiler concluidos.
--- Permite monitorear el desgaste del odometro entre la salida y el retorno para detectar posibles sobrecostos por uso intensivo.
 SELECT 
     ae.IdAlquiler,
     cl.Nombre AS Cliente,
@@ -511,9 +431,6 @@ JOIN VEHICULO v ON ae.VIN = v.VIN
 WHERE ae.KmLlegada IS NOT NULL
 ORDER BY KmRecorridos DESC;
 
-
--- Consulta 6: Tasa de utilizacion y facturacion acumulada por vehiculo en la flota.
--- Facilita la toma de decisiones para desincorporar vehiculos poco rentables o renovar las referencias mas solicitadas.
 SELECT 
     v.VIN,
     v.Placa,
@@ -528,9 +445,6 @@ LEFT JOIN CONTRATO c ON ae.IdAlquiler = c.IdAlquiler
 GROUP BY v.VIN, v.Placa, v.Marca, v.Modelo, v.TipoCombustible
 ORDER BY TotalVecesAlquilado DESC, TotalFacturadoVehiculo DESC;
 
-
--- Consulta 7: Red de recomendaciones y clientes referidos (relacion reflexiva RECOMIENDA).
--- Evalua la eficacia del programa de referidos identificando a los usuarios que mas clientes nuevos han atraido.
 SELECT 
     p.NIT AS NIT_Recomendador,
     p.Nombre AS NombreRecomendador,
@@ -541,9 +455,6 @@ JOIN CLIENTE h ON p.NIT = h.Recomendador_NIT
 GROUP BY p.NIT, p.Nombre
 ORDER BY TotalClientesReferidos DESC;
 
-
--- Consulta 8: Distribucion de polizas de seguro por aseguradora, tipo de cobertura y costo asociado.
--- Ofrece informacion contable para negociar primas colectivas con las companias de seguros segun el volumen colocado.
 SELECT 
     ps.Aseguradora,
     ps.TipoCobertura,
@@ -555,9 +466,6 @@ JOIN CONTRATO c ON ps.NumContrato = c.NumContrato
 GROUP BY ps.Aseguradora, ps.TipoCobertura
 ORDER BY CantidadPolizas DESC, CostoDiarioPromedio DESC;
 
-
--- Consulta 9: Vehiculos cuyo gasto de mantenimiento supera el promedio general de reparaciones.
--- Identifica unidades criticas con costos elevados que requieren revision preventiva o reemplazo dentro del plan de flota.
 SELECT 
     v.VIN,
     v.Placa,
@@ -574,9 +482,6 @@ HAVING SUM(m.CostoTotalMant) > (
 )
 ORDER BY GastoMantenimiento DESC;
 
-
--- Consulta 10: Tasa de conversion y efectividad de reservas frente a alquileres materializados.
--- Mide el embudo de ventas distinguiendo cuantas reservas planificadas terminaron en entregas efectivas de vehiculos.
 SELECT 
     r.Estado AS EstadoReserva,
     COUNT(r.CodReserva) AS CantidadReservas,

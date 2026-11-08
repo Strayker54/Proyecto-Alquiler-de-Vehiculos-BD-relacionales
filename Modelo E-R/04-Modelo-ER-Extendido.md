@@ -1,6 +1,6 @@
 # 4. Modelo Entidad-Relación Extendido (E-R)
 
-![Modelo Entidad Relacion Extendido](./Modelo_E-R_extendido.jpg)
+![Modelo Entidad Relación Extendido](./Modelo_E-R_extendido.jpg)
 
 ### Descripción Estructural del Modelo
 
