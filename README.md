@@ -55,7 +55,7 @@ Contiene la transformación lógica, los diccionarios de datos y la justificaci�
 - [Diagrama Lógico: Esquema Normalizado en 3FN](./Modelo%20Relacional/Modelo%20Relacional%20Normalizado.png)
 
 ### 3. [Proyecto Final](./Proyecto%20Final)
-Consolida la entrega final definitiva del curso para la sustentación de 15 minutos:
+Consolida la entrega final definitiva del curso para la sustentación:
 - [Notebook de Sustentación Final: Puntos 1 al 6 Consolidados](./Proyecto%20Final/Proyecto_Final_Alquiler_Vehiculos.ipynb)
 - [Base de Datos SQLite: archivo físico](./Proyecto%20Final/alquiler_vehiculos.db)
 - [Script SQL Completo: DDL, DML y 10 Consultas](./Proyecto%20Final/esquema_y_consultas.sql)
