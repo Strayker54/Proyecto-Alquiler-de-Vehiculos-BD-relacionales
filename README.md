@@ -51,7 +51,7 @@ Contiene la documentación inicial, el análisis del problema, el estado del art
 ### 2. [Modelo Relacional](./Modelo%20Relacional)
 Contiene la transformación lógica, los diccionarios de datos y la justificación técnica de las tres primeras formas normales:
 - [Notebook Fase 2: Diccionario de Datos e Informe de Normalización (1FN, 2FN, 3FN)](./Modelo%20Relacional/Proyecto_Alquiler_2da_entrega_modelo_relacional.ipynb)
-- [Diagrama Lógico: Esquema Inicial sin Normalizar](./Modelo%20Relacional%20Sin%20Normalizar%20final.png)
+- [Diagrama Lógico: Esquema Inicial sin Normalizar](./Modelo%20Relacional/Modelo%20Relacional%20Sin%20Normalizar%20final.png)
 - [Diagrama Lógico: Esquema Normalizado en 3FN](./Modelo%20Relacional/Modelo%20Relacional%20Normalizado.png)
 
 ### 3. [Proyecto Final](./Proyecto%20Final)
